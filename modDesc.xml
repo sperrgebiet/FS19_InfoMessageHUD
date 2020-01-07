@@ -2,7 +2,7 @@
 <modDesc descVersion="46">
 
     <author>sperrgebiet</author>
-    <version>1.0.0.0</version>
+    <version>1.0.0.1</version>
 
     <title>
         <de>Info Message HUD</de>
@@ -35,5 +35,16 @@ Changelog:
 	<extraSourceFiles>
 		<sourceFile filename="InfoMessageHUD.lua" />
 	</extraSourceFiles>
+
+	<l10n>
+		<text name="woodHarvester_cutLength">
+			<de>Schnittlänge</de>
+			<en>Cutting length</en>
+		</text>
+		<text name="woodHarvester_maxLength">
+			<de>Max. Schnittlänge</de>
+			<en>Max. cutting length</en>
+		</text>
+	</l10n>
 
 </modDesc>

@@ -9,7 +9,7 @@ InfoMessageHUD = {}
 InfoMessageHUD.eventName = {}
 InfoMessageHUD.ModName = g_currentModName
 InfoMessageHUD.ModDirectory = g_currentModDirectory
-InfoMessageHUD.Version = "1.0.0.0"
+InfoMessageHUD.Version = "1.0.0.1"
 
 InfoMessageHUD.debug = fileExists(InfoMessageHUD.ModDirectory ..'debug')
 
@@ -78,6 +78,12 @@ function InfoMessageHUD:draw()
 			while #g_currentMission.hud.inputHelp.extraHelpTexts ~= 0 do rawset(g_currentMission.hud.inputHelp.extraHelpTexts, #g_currentMission.hud.inputHelp.extraHelpTexts, nil) end
 		end
 		
+		--Render some additional (hopefully useful) infos
+		local extraInfoCount = InfoMessageHUD:getAdditionalInfo(posX, posY, size)
+		if  extraInfoCount > 0 then
+			posY = posY - (size * extraInfoCount)
+		end
+		
 		--Check if we've an context action which is helpful
 		local actionMsg = InfoMessageHUD:getContextAction()
 		if actionMsg ~= nil then
@@ -90,13 +96,29 @@ end
 
 function InfoMessageHUD:getContextAction()
 	--It's also helpful on foot, so always check if we've an activate object action
-	--if g_currentMission.controlledVehicle ~= nil then
+	--Furthermore add some additional info when we're in a wood harvester, so that it's easier to see that we can already cut a tree
 		for _, actionEvent in ipairs(g_inputBinding.displayActionEvents) do
 			if actionEvent.action.name == "ACTIVATE_OBJECT" then
+				return actionEvent.event.contextDisplayText
+			elseif g_currentMission.controlledVehicle ~= nil and g_currentMission.controlledVehicle.spec_woodHarvester ~= nil and actionEvent.action.name == "IMPLEMENT_EXTRA2" then
 				return actionEvent.event.contextDisplayText
 			end
 		end
 	--end
+end
+
+function InfoMessageHUD:getAdditionalInfo(posX, posY, size)
+	--Sometimes we have some additional useful info within actionNames. This was primarily added for wood harvesters to see the current cut lenght, but can be used later on for other scenarios too
+	local extraInfoCount = 0
+	if g_currentMission.controlledVehicle ~= nil then
+		if g_currentMission.controlledVehicle.spec_woodHarvester ~= nil then
+			InfoMessageHUD:renderText(posX, posY, size, (string.format('%s: %s m', g_i18n.modEnvironments[InfoMessageHUD.ModName].texts.woodHarvester_cutLength, g_currentMission.controlledVehicle.spec_woodHarvester.currentCutLength)), false, 1)
+			InfoMessageHUD:renderText(posX, posY - size, size, (string.format('%s: %s m',g_i18n.modEnvironments[InfoMessageHUD.ModName].texts.woodHarvester_maxLength, g_currentMission.controlledVehicle.spec_woodHarvester.cutLengthMax)), false, 1)
+			extraInfoCount = 2
+		end
+	end
+
+	return extraInfoCount
 end
 
 function InfoMessageHUD:renderText(x, y, size, text, bold, colorId)

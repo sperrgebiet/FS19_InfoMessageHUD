@@ -16,3 +16,9 @@ Damit man nicht immer mit aufgeklappten Hilfe/F1 Menü herumlaufen muss, zeigt d
 auch solche Meldungen gibt.
 
 Dabei werden Standardmeldugnen in Weiß, und mögliche Aktionen in Gelb angezeigt.
+
+
+
+
+# Changelog
+1.0.0.1: Added the rendering of additional info messages; Right now for wood harvester, to display the current cut & max cut length, as well as the action to cut a tree
