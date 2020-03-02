@@ -8,6 +8,7 @@ $ignorelist = get-content (Join-Path $srcPath ".gitignore")
 $ignorelist += "/New-ModZip.ps1"
 $ignorelist += "/icon.pdn"
 $ignorelist += "/screenshots/"
+$ignorelist += "/README.md"
 
 if($srcPath.Length -gt 0 -and $dstPath.Length -gt 0)
 {
@@ -21,7 +22,11 @@ if($srcPath.Length -gt 0 -and $dstPath.Length -gt 0)
 
     foreach($f in $allFolders)
     {
-        New-Item -ItemType Directory -Path $f.FullName.ToString().Replace($srcPath, $tmpPath)
+		if( -not $ignorelist.contains($f.FullName.ToString().Replace("$srcPath", "").Replace("\","/")) )
+		{
+			#New-Item -ItemType Directory -Path $f.FullName.ToString().Replace($srcPath, $tmpPath)
+			write-host $f.FullName.ToString().Replace($srcPath, $tmpPath)
+		}
     }
 
 

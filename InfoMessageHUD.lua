@@ -25,8 +25,9 @@ InfoMessageHUD.Colors[8]  = {'col_pink', {0.89, 0.03, 0.57, 1}}
 InfoMessageHUD.Colors[9]  = {'col_turquoise', {0.07, 0.57, 0.35, 1}}	
 InfoMessageHUD.Colors[10] = {'col_brown', {0.1912, 0.1119, 0.0529, 1}}
 
-
-print(string.format('InfoMessageHUD v%s - DebugMode %s)', InfoMessageHUD.Version, tostring(InfoMessageHUD.debug)))
+if InfoMessageHUD.debug then
+	print(string.format('InfoMessageHUD v%s - DebugMode %s)', InfoMessageHUD.Version, tostring(InfoMessageHUD.debug)))
+end
 
 function InfoMessageHUD:dp(val, fun, msg) -- debug mode, write to log
 	if not InfoMessageHUD.debug then
