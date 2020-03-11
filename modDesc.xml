@@ -2,7 +2,7 @@
 <modDesc descVersion="47">
 
     <author>sperrgebiet</author>
-    <version>1.0.0.1</version>
+    <version>1.0.0.2</version>
 
     <title>
 		<en>Info Message HUD</en>	
@@ -21,6 +21,7 @@ auch solche Meldungen gibt. Dabei werden Standardmeldugnen in Weiß, und möglic
 Changelog:
 1.0.0.0: Initiale Version
 1.0.0.1: Weitere Infos werden werden jetzt angezeigt. Im speziellen Infos in einem Holzvollernter (Schnittlänge, max. Schnittlänge, Aktion wenn ein Schnitt ausgeführt werden kann.
+1.0.0.2: Support für Wopster's Gülle System; Mod-spezifische Aktionen werden nun auch angezeigt
 ]]></de>
 		<en><![CDATA[There are those info messages within the help (F1) menu. Those show for example when you're within a trigger and can perform a given action. But also the messages which tell you that you've
 to fill an implement first. This mod shows these messages in the upper left corner when you're hiding the help (F1) menu, so that you never miss an action, and don't have to show the help menu all the time. 
@@ -29,6 +30,7 @@ Normal messages are shown in white, if the message is related to an action it wi
 Changelog:
 1.0.0.0: Initial version
 1.0.0.1: Added the rendering of additional info messages; Right now for wood harvester, to display the current cut & max cut length, as well as the action to cut a tree
+1.0.0.2: Support for Wopster's Manure System; Mod-specific actions are displayed now as well
 ]]></en>
     </description>
 

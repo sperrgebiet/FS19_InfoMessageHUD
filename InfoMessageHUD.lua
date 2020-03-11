@@ -9,9 +9,17 @@ InfoMessageHUD = {}
 InfoMessageHUD.eventName = {}
 InfoMessageHUD.ModName = g_currentModName
 InfoMessageHUD.ModDirectory = g_currentModDirectory
-InfoMessageHUD.Version = "1.0.0.1"
+InfoMessageHUD.Version = "1.0.0.2"
 
 InfoMessageHUD.debug = fileExists(InfoMessageHUD.ModDirectory ..'debug')
+
+InfoMessageHUD.Actions = {	"ACTIVATE_OBJECT",
+							"MS_ATTACH_HOSE",
+							"MS_DETACH_HOSE",
+							"MS_TOGGLE_FLOW",
+							"MS_ACTIVATE_PUMP",
+							"MS_TOGGLE_PUMP_DIRECTION"
+						}
 
 InfoMessageHUD.Colors = {}
 InfoMessageHUD.Colors[1]  = {'col_white', {1, 1, 1, 1}}				
@@ -99,10 +107,13 @@ function InfoMessageHUD:getContextAction()
 	--It's also helpful on foot, so always check if we've an activate object action
 	--Furthermore add some additional info when we're in a wood harvester, so that it's easier to see that we can already cut a tree
 		for _, actionEvent in ipairs(g_inputBinding.displayActionEvents) do
-			if actionEvent.action.name == "ACTIVATE_OBJECT" then
-				return actionEvent.event.contextDisplayText
-			elseif g_currentMission.controlledVehicle ~= nil and g_currentMission.controlledVehicle.spec_woodHarvester ~= nil and actionEvent.action.name == "IMPLEMENT_EXTRA2" then
-				return actionEvent.event.contextDisplayText
+			--if actionEvent.action.name == "ACTIVATE_OBJECT" then
+			for _, recognizedAction in pairs(InfoMessageHUD.Actions) do
+				if actionEvent.action.name == recognizedAction then
+					return actionEvent.event.contextDisplayText
+				elseif g_currentMission.controlledVehicle ~= nil and g_currentMission.controlledVehicle.spec_woodHarvester ~= nil and actionEvent.action.name == "IMPLEMENT_EXTRA2" then
+					return actionEvent.event.contextDisplayText
+				end
 			end
 		end
 	--end
